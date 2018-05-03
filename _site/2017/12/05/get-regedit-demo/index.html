@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>通过注册表读取Matlab列表并判断可执行文件是否存在的Demo &mdash; 董仁文的博客</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2017/12/05/get-regedit-demo/">
+    <link rel="alternate" type="application/atom+xml" title="董仁文的博客" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="通过注册表读取Matlab列表并判断可执行文件是否存在的Demo">
+      
+    <meta name="keywords" content="Windows, 软件开发, C++, 注册表">
+    <meta name="og:keywords" content="Windows, 软件开发, C++, 注册表">
+      
+    <meta name="description" content="一段通过注册表读取Matlab列表并判断可执行文件是否存在的Demo">
+    <meta name="og:description" content="一段通过注册表读取Matlab列表并判断可执行文件是否存在的Demo">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2017/12/05/get-regedit-demo/">
+    <meta property="og:site_name" content="董仁文的博客">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2017-12-05">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="董仁文的博客"><span class="octicon octicon-mark-github"></span> 董仁文的博客</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页">首页</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类">分类</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基">维基</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于">关于</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+    <section class="collection-head small geopattern" data-pattern-id="通过注册表读取Matlab列表">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">通过注册表读取Matlab列表并判断可执行文件是否存在的Demo</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2017/12/05
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#软件开发" title="软件开发">软件开发</a>
+          </span>
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#C++" title="C++">C++</a>
+          </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>一段通过注册表读取Matlab列表并判断可执行文件是否存在的Demo</p>
+
+<pre><code class="language-C++">#include &lt;iostream&gt;
+#include "Windows.h"
+#include &lt;string&gt;
+
+LPCTSTR matlab_path_array[] = {
+	TEXT("Matlab.Application.Single.7.10\\CLSID"),
+	TEXT("Matlab.Application.Single.7.11\\CLSID"),
+	TEXT("Matlab.Application.Single.7.12\\CLSID"),
+	TEXT("Matlab.Application.Single.7.13\\CLSID"),
+	TEXT("Matlab.Application.Single.7.14\\CLSID"),
+	TEXT("Matlab.Application.Single.8.0\\CLSID"),
+	TEXT("Matlab.Application.Single.8.1\\CLSID"),
+	TEXT("Matlab.Application.Single.8.2\\CLSID"),
+	TEXT("Matlab.Application.Single.8.3\\CLSID"),
+	TEXT("Matlab.Application.Single.8.4\\CLSID"),
+	TEXT("Matlab.Application.Single.8.5\\CLSID"),
+	TEXT("Matlab.Application.Single.8.6\\CLSID"),
+	TEXT("Matlab.Application.Single.9.0\\CLSID"),
+	TEXT("Matlab.Application.Single.9.1\\CLSID")
+};
+
+std::string matlab_names[] = {
+	"Matlab R2010a",
+	"Matlab R2010b",
+	"Matlab R2011a",
+	"Matlab R2011b",
+	"Matlab R2012a",
+	"Matlab R2012b",
+	"Matlab R2013a",
+	"Matlab R2013b",
+	"Matlab R2014a",
+	"Matlab R2014b",
+	"Matlab R2015a",
+	"Matlab R2015b",
+	"Matlab R2016a",
+	"Matlab R2016b"
+};
+
+int get_supported_matlab(char* versions)
+{
+	char out_versions[1024] = {0};
+	bool first = false;
+	for (int i = 0; i &lt; 14; i++)
+	{
+		HKEY hKey = NULL;
+		WCHAR wcCLSID[MAX_PATH] = {'\0'};
+		DWORD dwSize = sizeof(DWORD);
+		DWORD dwType = REG_SZ;
+		LONG ret;
+		ret = RegOpenKeyEx(HKEY_CLASSES_ROOT, matlab_path_array[i], 0, KEY_READ, &amp;hKey);
+		wprintf(L"RegOpenKeyEx returns %d\n%s\n", ret, matlab_path_array[i]);
+		if (ERROR_SUCCESS == ret)
+		{
+			ret = RegQueryValueEx(hKey, TEXT(""), 0, &amp;dwType, NULL, &amp;dwSize);
+			wprintf(L"RegQueryValueEx returns %d, dwSize=%d\n", ret, dwSize);
+
+			ret = RegQueryValueEx(hKey, TEXT(""), 0, &amp;dwType, (LPBYTE)&amp;wcCLSID, &amp;dwSize);
+			wprintf(L"RegQueryValueEx returns %d, dwSize=%d\n", ret, dwSize);
+			if (ERROR_SUCCESS == ret)
+			{
+				wprintf(L"wcCLSID: %s\n", wcCLSID);
+				
+				HKEY hKey1 = NULL;
+				DWORD dwSize1 = sizeof(DWORD);
+				DWORD dwType1 = REG_SZ;
+				WCHAR wcClsidPath[MAX_PATH] = {'\0'};
+				WCHAR wcClsidValue[MAX_PATH] = {'\0'};
+				swprintf_s(wcClsidPath, MAX_PATH, L"SOFTWARE\\Classes\\CLSID\\%s\\LocalServer32", wcCLSID);
+
+				//ret = RegOpenKeyEx(HKEY_LOCAL_MACHINE, wcClsidPath, 0, KEY_READ, &amp;hKey1);
+				//ret = RegOpenKeyEx(HKEY_LOCAL_MACHINE, wcClsidPath, 0, KEY_WOW64_32KEY|KEY_READ, &amp;hKey1);
+				ret = RegOpenKeyEx(HKEY_LOCAL_MACHINE, wcClsidPath, 0, KEY_WOW64_64KEY|KEY_READ, &amp;hKey1);
+				wprintf(L"RegOpenKeyEx returns %d\n%s\n", ret, wcClsidPath);
+				if (ERROR_SUCCESS == ret)
+				{
+					ret = RegQueryValueEx(hKey1, TEXT(""), 0, &amp;dwType1, NULL, &amp;dwSize1);
+					wprintf(L"RegQueryValueEx returns %d, dwSize=%d\n", ret, dwSize1);
+
+					ret = RegQueryValueEx(hKey1, TEXT(""), 0, &amp;dwType1, (LPBYTE)&amp;wcClsidValue, &amp;dwSize1);
+					wprintf(L"RegQueryValueEx returns %d, dwSize=%d\n", ret, dwSize1);
+					if (ERROR_SUCCESS == ret)
+					{
+						wprintf(L"wcClsidValue: %s\n", wcClsidValue);
+						std::wstring wsExePathTmp(wcClsidValue);
+						std::wstring wsExePath = wsExePathTmp.substr(0,wsExePathTmp.rfind(L" /MLAutomation"));
+						LPCWSTR exeName = (LPCWSTR)wsExePath.c_str();
+
+						WIN32_FIND_DATA  FindFileData;
+						HANDLE hFind;
+
+						hFind = FindFirstFile(exeName, &amp;FindFileData);
+						if (hFind != INVALID_HANDLE_VALUE)
+						{
+							if (first == false)
+							{
+								sprintf_s(out_versions, 1024, "%s", matlab_names[i].c_str());
+								first = true;
+							}
+							else
+							{
+								sprintf_s(out_versions, 1024, "%s/%s", out_versions, matlab_names[i].c_str());
+							}
+							wprintf(L"The first file found is %s ", FindFileData.cFileName);
+							FindClose(hFind);
+						}
+					}
+					RegCloseKey(hKey1);
+				}
+			}
+			RegCloseKey(hKey);
+		}
+	}
+    memcpy(versions, out_versions, strlen(out_versions)+1);
+	return 0;
+}
+</code></pre>
+
+<p><strong>本段代码使用的是Windows的API</strong></p>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2017/12/05/get-regedit-demo/',
+            clientID: '714700c9625eb94e66af',
+            clientSecret: '78639b30e3e03d1d73a0495ab9835d9699b39169',
+            repo: 'dongrenwen.github.io',
+            owner: 'dongrenwen',
+            admin: ['dongrenwen'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/simple-jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="Renwen Dong">Renwen Dong</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="http://github.com/dongrenwen/dongrenwen.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="首页" target="">首页</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="分类" target="">分类</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="链接" target="">链接</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="关于" target="">关于</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-118257699-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>

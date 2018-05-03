@@ -92,14 +92,14 @@ disqus:
 # https://imsun.net/posts/gitment-introduction/
 gitment:
     owner: dongrenwen
-    repo: blog-comments
+    repo: dongrenwen.github.io
     oauth:
         client_id: 714700c9625eb94e66af
         client_secret: 78639b30e3e03d1d73a0495ab9835d9699b39169
 # https://github.com/gitalk/gitalk#install
 gitalk:
     owner: dongrenwen
-    repo: blog-comments
+    repo: dongrenwen.github.io
     clientID: 714700c9625eb94e66af
     clientSecret: 78639b30e3e03d1d73a0495ab9835d9699b39169
 # 在使用其它评论组件时可点击显示 Disqus

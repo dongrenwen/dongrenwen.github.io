@@ -2,7 +2,7 @@
 layout: wiki
 title: OneNote
 categories: Tools
-description: 我最常用的跨平台笔记软件。
+description: 微软跨平台笔记软件
 keywords: OneNote, GTD
 ---
 
