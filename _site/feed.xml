@@ -1,4 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-04T12:21:35+08:00</updated><id>http://localhost:4000/</id><title type="html">董仁文的博客</title><subtitle>董仁文的个人博客</subtitle><author><name>Renwen Dong</name></author><entry><title type="html">DB2命令行连接</title><link href="http://localhost:4000/2018/05/04/db2-connect/" rel="alternate" type="text/html" title="DB2命令行连接" /><published>2018-05-04T00:00:00+08:00</published><updated>2018-05-04T00:00:00+08:00</updated><id>http://localhost:4000/2018/05/04/db2-connect</id><content type="html" xml:base="http://localhost:4000/2018/05/04/db2-connect/">&lt;h1 id=&quot;db2-连接方法&quot;&gt;DB2 连接方法&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-04T17:19:39+08:00</updated><id>http://localhost:4000/</id><title type="html">董仁文的博客</title><subtitle>董仁文的个人博客</subtitle><author><name>Renwen Dong</name></author><entry><title type="html">安装DB2时导致yum损坏解决办法</title><link href="http://localhost:4000/2018/05/04/yum-error/" rel="alternate" type="text/html" title="安装DB2时导致yum损坏解决办法" /><published>2018-05-04T00:00:00+08:00</published><updated>2018-05-04T00:00:00+08:00</updated><id>http://localhost:4000/2018/05/04/yum-error</id><content type="html" xml:base="http://localhost:4000/2018/05/04/yum-error/">&lt;h1 id=&quot;安装db2时导致yum损坏解决办法&quot;&gt;安装DB2时导致yum损坏解决办法&lt;/h1&gt;
+
+&lt;h2 id=&quot;问题描述&quot;&gt;问题描述&lt;/h2&gt;
+
+&lt;p&gt;在安装DB2相关依赖包时，导致yum损坏，相关命令不能使用。&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;出现类似下面的错误信息：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-log&quot;&gt;error: Failed to initialize NSS library
+There was a problem importing one of the Python modules
+required to run yum. The error leading to this problem was:
+
+   cannot import name ts
+
+Please install a package which provides this module, or
+verify that the module is installed correctly.
+
+It's possible that the above module doesn't match the
+current version of Python, which is:
+2.7.5 (default, Oct 11 2015, 17:47:16) 
+[GCC 4.8.3 20140911 (Red Hat 4.8.3-9)]
+
+If you cannot solve this problem yourself, please go to 
+the yum faq at:
+  http://yum.baseurl.org/wiki/Faq
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;解决办法&quot;&gt;解决办法&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;下载 nspr（ &lt;a href=&quot;http://mirror.centos.org/centos/7/os/x86_64/Packages/nspr-4.13.1-1.0.el7_3.x86_64.rpm&quot;&gt;nspr-4.13.1-1.0.el7_3.x86_64.rpm&lt;/a&gt; ）包&lt;/li&gt;
+  &lt;li&gt;执行命令：&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rpm2cpio nspr-4.13.1-1.0.el7_3.x86_64.rpm | cpio &lt;span class=&quot;nt&quot;&gt;-idmv&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;执行命令：&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;LD_PRELOAD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./usr/lib64/libnspr4.so yum update nspr
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;注意事项&quot;&gt;注意事项&lt;/h2&gt;
+
+&lt;p&gt;如果还报错，可以将 &lt;code class=&quot;highlighter-rouge&quot;&gt;export LD_PRELOAD=/usr/lib64/libnspr4.so&lt;/code&gt; 写入 &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/profile&lt;/code&gt; ，然后再 &lt;code class=&quot;highlighter-rouge&quot;&gt;source /etc/profile&lt;/code&gt;&lt;/p&gt;</content><author><name>Renwen Dong</name></author><summary type="html">安装DB2时导致yum损坏解决办法</summary></entry><entry><title type="html">DB2命令行连接</title><link href="http://localhost:4000/2018/05/04/db2-connect/" rel="alternate" type="text/html" title="DB2命令行连接" /><published>2018-05-04T00:00:00+08:00</published><updated>2018-05-04T00:00:00+08:00</updated><id>http://localhost:4000/2018/05/04/db2-connect</id><content type="html" xml:base="http://localhost:4000/2018/05/04/db2-connect/">&lt;h1 id=&quot;db2-连接方法&quot;&gt;DB2 连接方法&lt;/h1&gt;
 
 &lt;h2 id=&quot;第一步&quot;&gt;第一步&lt;/h2&gt;
 
@@ -738,10 +784,4 @@ void StringToWstring(std::wstring&amp;amp; szDst, std::string str)
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;strong&gt;本段代码使用的是Windows的API&lt;/strong&gt;&lt;/p&gt;</content><author><name>Renwen Dong</name></author><summary type="html">wchar_t to string</summary></entry><entry><title type="html">Excel通过OFFSET函数取得以当前位置为中心的偏移位置</title><link href="http://localhost:4000/2017/12/01/excel-offset/" rel="alternate" type="text/html" title="Excel通过OFFSET函数取得以当前位置为中心的偏移位置" /><published>2017-12-01T00:00:00+08:00</published><updated>2017-12-01T00:00:00+08:00</updated><id>http://localhost:4000/2017/12/01/excel-offset</id><content type="html" xml:base="http://localhost:4000/2017/12/01/excel-offset/">&lt;p&gt;Excel通过OFFSET函数取得以当前位置为中心的偏移位置&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;OFFSET&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;INDIRECT&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;ADDRESS&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;ROW&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;,COLUMN&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;, 4&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;, 1, &lt;span class=&quot;nt&quot;&gt;-4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - OFFSET&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;INDIRECT&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;ADDRESS&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;ROW&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;,COLUMN&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;, 4&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;, 0, &lt;span class=&quot;nt&quot;&gt;-4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;其中在OFFSET函数中使用ADDRESS函数取得当前位置，需要在外面包裹INDIRECT函数。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;测试的Excel版本为2016&lt;/strong&gt;&lt;/p&gt;</content><author><name>Renwen Dong</name></author><summary type="html">Excel通过OFFSET函数取得以当前位置为中心的偏移位置</summary></entry></feed>
+&lt;p&gt;&lt;strong&gt;本段代码使用的是Windows的API&lt;/strong&gt;&lt;/p&gt;</content><author><name>Renwen Dong</name></author><summary type="html">wchar_t to string</summary></entry></feed>
