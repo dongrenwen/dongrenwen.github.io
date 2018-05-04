@@ -1,4 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-03T15:27:05+08:00</updated><id>http://localhost:4000/</id><title type="html">董仁文的博客</title><subtitle>董仁文的个人博客</subtitle><author><name>Renwen Dong</name></author><entry><title type="html">MacOS允许任何来源应用</title><link href="http://localhost:4000/2018/05/03/spctl-master-disable/" rel="alternate" type="text/html" title="MacOS允许任何来源应用" /><published>2018-05-03T00:00:00+08:00</published><updated>2018-05-03T00:00:00+08:00</updated><id>http://localhost:4000/2018/05/03/spctl-master-disable</id><content type="html" xml:base="http://localhost:4000/2018/05/03/spctl-master-disable/">&lt;p&gt;在MacOS中，在网络上下载的第三方软件，安装的时候可能会出现文件已损坏的提示，导致软件无法使用。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-04T12:21:35+08:00</updated><id>http://localhost:4000/</id><title type="html">董仁文的博客</title><subtitle>董仁文的个人博客</subtitle><author><name>Renwen Dong</name></author><entry><title type="html">DB2命令行连接</title><link href="http://localhost:4000/2018/05/04/db2-connect/" rel="alternate" type="text/html" title="DB2命令行连接" /><published>2018-05-04T00:00:00+08:00</published><updated>2018-05-04T00:00:00+08:00</updated><id>http://localhost:4000/2018/05/04/db2-connect</id><content type="html" xml:base="http://localhost:4000/2018/05/04/db2-connect/">&lt;h1 id=&quot;db2-连接方法&quot;&gt;DB2 连接方法&lt;/h1&gt;
+
+&lt;h2 id=&quot;第一步&quot;&gt;第一步&lt;/h2&gt;
+
+&lt;p&gt;创建节点 语法：db2 catalog tcpip node &lt;接点名称&gt; remote &lt;远程数据库地址&gt; server &lt;端口号&gt;&lt;/端口号&gt;&lt;/远程数据库地址&gt;&lt;/接点名称&gt;&lt;/p&gt;
+
+&lt;p&gt;执行语句：&lt;code class=&quot;highlighter-rouge&quot;&gt;db2 catalog tcpip node mynode remote 192.168.0.26 server 50000&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;第二步&quot;&gt;第二步&lt;/h2&gt;
+
+&lt;p&gt;创建远程数据库实例 语法：db2 catalog db &lt;远程数据库名称&gt; as &lt;接点名称&gt; at node PUB11 &lt;/接点名称&gt;&lt;/远程数据库名称&gt;&lt;/p&gt;
+
+&lt;p&gt;执行语句：&lt;code class=&quot;highlighter-rouge&quot;&gt;db2 catalog db sample as mydb at node mynode&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;第三步&quot;&gt;第三步&lt;/h2&gt;
+
+&lt;p&gt;连接数据库 语法：db2 CONNECT TO &lt;接点名称&gt; user &lt;用户名&gt; using &lt;密码&gt;&lt;/密码&gt;&lt;/用户名&gt;&lt;/接点名称&gt;&lt;/p&gt;
+
+&lt;p&gt;执行语句：&lt;code class=&quot;highlighter-rouge&quot;&gt;db2 CONNECT TO mydb user db2inst1 using db2inst1&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;第四步&quot;&gt;第四步&lt;/h2&gt;
+
+&lt;p&gt;连接成功后测试查询语句返回结果 语法：db2 &lt;SQL语句&gt;&lt;/SQL语句&gt;&lt;/p&gt;
+
+&lt;p&gt;执行语句：&lt;code class=&quot;highlighter-rouge&quot;&gt;db2 &quot;select * from staff&quot;&lt;/code&gt;&lt;/p&gt;</content><author><name>Renwen Dong</name></author><summary type="html">DB2 连接方法</summary></entry><entry><title type="html">MacOS允许任何来源应用</title><link href="http://localhost:4000/2018/05/03/spctl-master-disable/" rel="alternate" type="text/html" title="MacOS允许任何来源应用" /><published>2018-05-03T00:00:00+08:00</published><updated>2018-05-03T00:00:00+08:00</updated><id>http://localhost:4000/2018/05/03/spctl-master-disable</id><content type="html" xml:base="http://localhost:4000/2018/05/03/spctl-master-disable/">&lt;p&gt;在MacOS中，在网络上下载的第三方软件，安装的时候可能会出现文件已损坏的提示，导致软件无法使用。&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;解决办法&lt;/strong&gt;&lt;/p&gt;
 
@@ -720,8 +744,4 @@ void StringToWstring(std::wstring&amp;amp; szDst, std::string str)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;其中在OFFSET函数中使用ADDRESS函数取得当前位置，需要在外面包裹INDIRECT函数。&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;测试的Excel版本为2016&lt;/strong&gt;&lt;/p&gt;</content><author><name>Renwen Dong</name></author><summary type="html">Excel通过OFFSET函数取得以当前位置为中心的偏移位置</summary></entry><entry><title type="html">VS2015显示空白格和Tab</title><link href="http://localhost:4000/2017/11/27/vs-show-space/" rel="alternate" type="text/html" title="VS2015显示空白格和Tab" /><published>2017-11-27T00:00:00+08:00</published><updated>2017-11-27T00:00:00+08:00</updated><id>http://localhost:4000/2017/11/27/vs-show-space</id><content type="html" xml:base="http://localhost:4000/2017/11/27/vs-show-space/">&lt;p&gt;执行的快捷键为&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Ctrl+R,Ctrl+W
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;测试的VS版本为2015&lt;/strong&gt;&lt;/p&gt;</content><author><name>Renwen Dong</name></author><summary type="html">执行的快捷键为 Ctrl+R,Ctrl+W</summary></entry></feed>
+&lt;p&gt;&lt;strong&gt;测试的Excel版本为2016&lt;/strong&gt;&lt;/p&gt;</content><author><name>Renwen Dong</name></author><summary type="html">Excel通过OFFSET函数取得以当前位置为中心的偏移位置</summary></entry></feed>

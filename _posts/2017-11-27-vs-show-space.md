@@ -2,7 +2,7 @@
 layout:      post
 title:       "VS2015显示空白格和Tab"
 categories:  [软件开发]
-description: “VS2015显示空白格和Tab”
+description: "VS2015显示空白格和Tab"
 keywords:    软件开发, 快捷键, VS2015
 ---
 

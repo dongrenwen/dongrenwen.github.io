@@ -2,7 +2,7 @@
 layout:      post
 title:       "wchar_t to string, string to wstring"
 categories:  [软件开发, C++]
-description: “wchar_t to string, string to wstring”
+description: "wchar_t to string, string to wstring"
 keywords:    C++, 软件开发
 ---
 

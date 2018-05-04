@@ -2,7 +2,7 @@
 layout:      post
 title:       "让一个div在另一个div中左右居中的css样式"
 categories:  [软件开发, 前端]
-description: “通过CSS3来实左右居中”
+description: "通过CSS3来实左右居中"
 keywords:    软件开发, 前端, CSS
 ---
 

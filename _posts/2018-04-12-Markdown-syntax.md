@@ -2,7 +2,7 @@
 layout:      post
 title:       "Markdown常用语法"
 categories:  [Markdown, 操作技巧]
-description: “Markdown Syntax”
+description: "Markdown Syntax"
 keywords:    Markdown, 操作技巧
 ---
 

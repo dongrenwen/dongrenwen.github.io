@@ -2,7 +2,7 @@
 layout:      post
 title:       "关于SUMO"
 categories:  [软件开发]
-description: “About Simulation of Urban Mobility”
+description: "About Simulation of Urban Mobility"
 keywords:    SUMO, 软件开发
 ---
 

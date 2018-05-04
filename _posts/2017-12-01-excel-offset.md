@@ -2,7 +2,7 @@
 layout:      post
 title:       "Excel通过OFFSET函数取得以当前位置为中心的偏移位置"
 categories:  [软件开发, Office]
-description: “Excel通过OFFSET函数取得以当前位置为中心的偏移位置”
+description: "Excel通过OFFSET函数取得以当前位置为中心的偏移位置"
 keywords:    Excel, 软件开发, Office
 ---
 

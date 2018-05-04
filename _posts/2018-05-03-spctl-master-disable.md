@@ -2,7 +2,7 @@
 layout:      post
 title:       "MacOS允许任何来源应用"
 categories:  [MacOS, 操作技巧]
-description: “sudo spctl --master-disable”
+description: "sudo spctl --master-disable"
 keywords:    MacOS, 操作技巧
 ---
 

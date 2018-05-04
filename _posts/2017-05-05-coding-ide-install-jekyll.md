@@ -2,7 +2,7 @@
 layout:      post
 title:       "Coding IDE 安装 Jekyll"
 categories:  [软件开发]
-description: “Coding IDE 安装 Jekyll”
+description: "Coding IDE 安装 Jekyll"
 keywords:    软件开发, Jekyll
 ---
 

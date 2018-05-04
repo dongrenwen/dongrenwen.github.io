@@ -2,7 +2,7 @@
 layout:      post
 title:       "SUMO的简单操作"
 categories:  [软件开发]
-description: “SUMO's simple operation”
+description: "SUMO's simple operation"
 keywords:    SUMO, 软件开发
 ---
 

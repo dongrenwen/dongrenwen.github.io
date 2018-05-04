@@ -2,7 +2,7 @@
 layout:      post
 title:       "CSS让图片置灰的办法"
 categories:  [软件开发, 前端]
-description: “通过CSS3来实现图片灰显的方法”
+description: "通过CSS3来实现图片灰显的方法"
 keywords:    软件开发, 前端, CSS
 ---
 

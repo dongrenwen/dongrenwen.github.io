@@ -2,7 +2,7 @@
 layout:      post
 title:       "CLion常用快捷键"
 categories:  [软件开发, C++]
-description: “CLion常用快捷键”
+description: "CLion常用快捷键"
 keywords:    软件开发, C++, CLion
 ---
 
