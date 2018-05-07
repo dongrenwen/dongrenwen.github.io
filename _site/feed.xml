@@ -1,5 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-07T08:51:49+08:00</updated><id>http://localhost:4000/</id><title type="html">董仁文的博客</title><subtitle>董仁文的个人博客</subtitle><author><name>Renwen Dong</name></author><entry><title type="html">DB2极简安装步骤</title><link href="http://localhost:4000/2018/05/07/db2-install/" rel="alternate" type="text/html" title="DB2极简安装步骤" /><published>2018-05-07T00:00:00+08:00</published><updated>2018-05-07T00:00:00+08:00</updated><id>http://localhost:4000/2018/05/07/db2-install</id><content type="html" xml:base="http://localhost:4000/2018/05/07/db2-install/">&lt;h1 id=&quot;db2极简安装步骤&quot;&gt;DB2极简安装步骤&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-07T17:05:34+08:00</updated><id>http://localhost:4000/</id><title type="html">董仁文的博客</title><subtitle>董仁文的个人博客</subtitle><author><name>Renwen Dong</name></author><entry><title type="html">通过Docker安装db2express-c</title><link href="http://localhost:4000/2018/05/07/docker-install-db2/" rel="alternate" type="text/html" title="通过Docker安装db2express-c" /><published>2018-05-07T00:00:00+08:00</published><updated>2018-05-07T00:00:00+08:00</updated><id>http://localhost:4000/2018/05/07/docker-install-db2</id><content type="html" xml:base="http://localhost:4000/2018/05/07/docker-install-db2/">&lt;h1 id=&quot;通过docker安装db2express-c&quot;&gt;通过Docker安装db2express-c&lt;/h1&gt;
+
+&lt;p&gt;通过 Docker 安装 db2express-c 并启用服务。&lt;/p&gt;
+
+&lt;h2 id=&quot;从网络获取db2express-c镜像&quot;&gt;从网络获取db2express-c镜像&lt;/h2&gt;
+
+&lt;p&gt;通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;docker search db2&lt;/code&gt; 命令的返回结果可以看到包含DB2的镜像，在这里面找到我们需要的镜像&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;INDEX       NAME                                     DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+docker.io   docker.io/ibmcom/db2express-c             IBM DB2 Express-C                              151 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后通过链接 &lt;a href=&quot;https://hub.docker.com/r/ibmcom/db2express-c/&quot;&gt;https://hub.docker.com/r/ibmcom/db2express-c/&lt;/a&gt; 查看版本号，如果不关心具体版本号，可以选用 &lt;code class=&quot;highlighter-rouge&quot;&gt;latest&lt;/code&gt; 版本。&lt;/p&gt;
+
+&lt;p&gt;通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;docker pull&lt;/code&gt; 命令拉取镜像&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker pull ibmcom/db2express-c:lastest
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;通过命令启动db2服务&quot;&gt;通过命令启动db2服务&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; DB2ExpressC &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 50000:50000 &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;DB2INST1_PASSWORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;db2inst1 &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;LICENSE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;accept  ibmcom/db2express-c:lastest db2start
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--name DB2ExpressC&lt;/code&gt; 表示为为容器指定名称为 DB2ExpressC&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-d&lt;/code&gt; 表示后台运行&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-p 50000:50000&lt;/code&gt; 表示对外公开的端口为 50000&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-e DB2INST1_PASSWORD=db2inst1&lt;/code&gt; 表示为默认用户 db2inst1 设置密码为 db2inst1&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-e LICENSE=accept&lt;/code&gt; 表示同意默认的许可证信息&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;db2start&lt;/code&gt; 表示启动db2服务&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;安装默认实例&quot;&gt;安装默认实例&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;进入到启动的容器中&lt;/p&gt;
+
+    &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; docker &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; DB2ExpressC /bin/bash
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;切换用户到 db2inst1&lt;/p&gt;
+
+    &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; su - db2inst1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;安装默认实例&lt;/p&gt;
+
+    &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; db2sampl
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;连接到新创建的数据库实例&lt;/p&gt;
+
+    &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; db2 connect to sample
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;执行 SQL 文确认环境的正常&lt;/p&gt;
+
+    &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; db2 &lt;span class=&quot;s2&quot;&gt;&quot;SELECT * FROM STAFF&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;exit&lt;/code&gt; 命令退出默认用户 db2inst1&lt;/li&gt;
+  &lt;li&gt;通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;exit&lt;/code&gt; 命令退出容器&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Renwen Dong</name></author><summary type="html">通过Docker安装db2express-c</summary></entry><entry><title type="html">DB2极简安装步骤</title><link href="http://localhost:4000/2018/05/07/db2-install/" rel="alternate" type="text/html" title="DB2极简安装步骤" /><published>2018-05-07T00:00:00+08:00</published><updated>2018-05-07T00:00:00+08:00</updated><id>http://localhost:4000/2018/05/07/db2-install</id><content type="html" xml:base="http://localhost:4000/2018/05/07/db2-install/">&lt;h1 id=&quot;db2极简安装步骤&quot;&gt;DB2极简安装步骤&lt;/h1&gt;
+
 &lt;p&gt;RHEL7.2最简单的方式快速搭建DB2数据库&lt;/p&gt;
+
 &lt;h2 id=&quot;安装相关的依赖库&quot;&gt;安装相关的依赖库&lt;/h2&gt;
 
 &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;yum whatprovides libstdc++.so.
@@ -39,7 +109,7 @@ chmod &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; 775 &lt;span class=&quot;
 db2sampl
 db2start
 db2 “select &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; from staff”
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Renwen Dong</name></author><summary type="html">DB2极简安装步骤 RHEL7.2最简单的方式快速搭建DB2数据库 安装相关的依赖库</summary></entry><entry><title type="html">安装DB2时导致yum损坏解决办法</title><link href="http://localhost:4000/2018/05/04/yum-error/" rel="alternate" type="text/html" title="安装DB2时导致yum损坏解决办法" /><published>2018-05-04T00:00:00+08:00</published><updated>2018-05-04T00:00:00+08:00</updated><id>http://localhost:4000/2018/05/04/yum-error</id><content type="html" xml:base="http://localhost:4000/2018/05/04/yum-error/">&lt;h1 id=&quot;安装db2时导致yum损坏解决办法&quot;&gt;安装DB2时导致yum损坏解决办法&lt;/h1&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Renwen Dong</name></author><summary type="html">DB2极简安装步骤</summary></entry><entry><title type="html">安装DB2时导致yum损坏解决办法</title><link href="http://localhost:4000/2018/05/04/yum-error/" rel="alternate" type="text/html" title="安装DB2时导致yum损坏解决办法" /><published>2018-05-04T00:00:00+08:00</published><updated>2018-05-04T00:00:00+08:00</updated><id>http://localhost:4000/2018/05/04/yum-error</id><content type="html" xml:base="http://localhost:4000/2018/05/04/yum-error/">&lt;h1 id=&quot;安装db2时导致yum损坏解决办法&quot;&gt;安装DB2时导致yum损坏解决办法&lt;/h1&gt;
 
 &lt;h2 id=&quot;问题描述&quot;&gt;问题描述&lt;/h2&gt;
 
@@ -672,123 +742,4 @@ ___
       &lt;li&gt;点击左上角的导出&lt;/li&gt;
     &lt;/ol&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Renwen Dong</name></author><summary type="html">OpenStreetMap 是一个由地图制作爱好者组成的社区。这些爱好者提供并维护世界各地关于道路、小道、咖啡馆、铁路车站等各种各样的数据。</summary></entry><entry><title type="html">通过注册表读取Matlab列表并判断可执行文件是否存在的Demo</title><link href="http://localhost:4000/2017/12/05/get-regedit-demo/" rel="alternate" type="text/html" title="通过注册表读取Matlab列表并判断可执行文件是否存在的Demo" /><published>2017-12-05T00:00:00+08:00</published><updated>2017-12-05T00:00:00+08:00</updated><id>http://localhost:4000/2017/12/05/get-regedit-demo</id><content type="html" xml:base="http://localhost:4000/2017/12/05/get-regedit-demo/">&lt;p&gt;一段通过注册表读取Matlab列表并判断可执行文件是否存在的Demo&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-C++&quot;&gt;#include &amp;lt;iostream&amp;gt;
-#include &quot;Windows.h&quot;
-#include &amp;lt;string&amp;gt;
-
-LPCTSTR matlab_path_array[] = {
-	TEXT(&quot;Matlab.Application.Single.7.10\\CLSID&quot;),
-	TEXT(&quot;Matlab.Application.Single.7.11\\CLSID&quot;),
-	TEXT(&quot;Matlab.Application.Single.7.12\\CLSID&quot;),
-	TEXT(&quot;Matlab.Application.Single.7.13\\CLSID&quot;),
-	TEXT(&quot;Matlab.Application.Single.7.14\\CLSID&quot;),
-	TEXT(&quot;Matlab.Application.Single.8.0\\CLSID&quot;),
-	TEXT(&quot;Matlab.Application.Single.8.1\\CLSID&quot;),
-	TEXT(&quot;Matlab.Application.Single.8.2\\CLSID&quot;),
-	TEXT(&quot;Matlab.Application.Single.8.3\\CLSID&quot;),
-	TEXT(&quot;Matlab.Application.Single.8.4\\CLSID&quot;),
-	TEXT(&quot;Matlab.Application.Single.8.5\\CLSID&quot;),
-	TEXT(&quot;Matlab.Application.Single.8.6\\CLSID&quot;),
-	TEXT(&quot;Matlab.Application.Single.9.0\\CLSID&quot;),
-	TEXT(&quot;Matlab.Application.Single.9.1\\CLSID&quot;)
-};
-
-std::string matlab_names[] = {
-	&quot;Matlab R2010a&quot;,
-	&quot;Matlab R2010b&quot;,
-	&quot;Matlab R2011a&quot;,
-	&quot;Matlab R2011b&quot;,
-	&quot;Matlab R2012a&quot;,
-	&quot;Matlab R2012b&quot;,
-	&quot;Matlab R2013a&quot;,
-	&quot;Matlab R2013b&quot;,
-	&quot;Matlab R2014a&quot;,
-	&quot;Matlab R2014b&quot;,
-	&quot;Matlab R2015a&quot;,
-	&quot;Matlab R2015b&quot;,
-	&quot;Matlab R2016a&quot;,
-	&quot;Matlab R2016b&quot;
-};
-
-int get_supported_matlab(char* versions)
-{
-	char out_versions[1024] = {0};
-	bool first = false;
-	for (int i = 0; i &amp;lt; 14; i++)
-	{
-		HKEY hKey = NULL;
-		WCHAR wcCLSID[MAX_PATH] = {'\0'};
-		DWORD dwSize = sizeof(DWORD);
-		DWORD dwType = REG_SZ;
-		LONG ret;
-		ret = RegOpenKeyEx(HKEY_CLASSES_ROOT, matlab_path_array[i], 0, KEY_READ, &amp;amp;hKey);
-		wprintf(L&quot;RegOpenKeyEx returns %d\n%s\n&quot;, ret, matlab_path_array[i]);
-		if (ERROR_SUCCESS == ret)
-		{
-			ret = RegQueryValueEx(hKey, TEXT(&quot;&quot;), 0, &amp;amp;dwType, NULL, &amp;amp;dwSize);
-			wprintf(L&quot;RegQueryValueEx returns %d, dwSize=%d\n&quot;, ret, dwSize);
-
-			ret = RegQueryValueEx(hKey, TEXT(&quot;&quot;), 0, &amp;amp;dwType, (LPBYTE)&amp;amp;wcCLSID, &amp;amp;dwSize);
-			wprintf(L&quot;RegQueryValueEx returns %d, dwSize=%d\n&quot;, ret, dwSize);
-			if (ERROR_SUCCESS == ret)
-			{
-				wprintf(L&quot;wcCLSID: %s\n&quot;, wcCLSID);
-				
-				HKEY hKey1 = NULL;
-				DWORD dwSize1 = sizeof(DWORD);
-				DWORD dwType1 = REG_SZ;
-				WCHAR wcClsidPath[MAX_PATH] = {'\0'};
-				WCHAR wcClsidValue[MAX_PATH] = {'\0'};
-				swprintf_s(wcClsidPath, MAX_PATH, L&quot;SOFTWARE\\Classes\\CLSID\\%s\\LocalServer32&quot;, wcCLSID);
-
-				//ret = RegOpenKeyEx(HKEY_LOCAL_MACHINE, wcClsidPath, 0, KEY_READ, &amp;amp;hKey1);
-				//ret = RegOpenKeyEx(HKEY_LOCAL_MACHINE, wcClsidPath, 0, KEY_WOW64_32KEY|KEY_READ, &amp;amp;hKey1);
-				ret = RegOpenKeyEx(HKEY_LOCAL_MACHINE, wcClsidPath, 0, KEY_WOW64_64KEY|KEY_READ, &amp;amp;hKey1);
-				wprintf(L&quot;RegOpenKeyEx returns %d\n%s\n&quot;, ret, wcClsidPath);
-				if (ERROR_SUCCESS == ret)
-				{
-					ret = RegQueryValueEx(hKey1, TEXT(&quot;&quot;), 0, &amp;amp;dwType1, NULL, &amp;amp;dwSize1);
-					wprintf(L&quot;RegQueryValueEx returns %d, dwSize=%d\n&quot;, ret, dwSize1);
-
-					ret = RegQueryValueEx(hKey1, TEXT(&quot;&quot;), 0, &amp;amp;dwType1, (LPBYTE)&amp;amp;wcClsidValue, &amp;amp;dwSize1);
-					wprintf(L&quot;RegQueryValueEx returns %d, dwSize=%d\n&quot;, ret, dwSize1);
-					if (ERROR_SUCCESS == ret)
-					{
-						wprintf(L&quot;wcClsidValue: %s\n&quot;, wcClsidValue);
-						std::wstring wsExePathTmp(wcClsidValue);
-						std::wstring wsExePath = wsExePathTmp.substr(0,wsExePathTmp.rfind(L&quot; /MLAutomation&quot;));
-						LPCWSTR exeName = (LPCWSTR)wsExePath.c_str();
-
-						WIN32_FIND_DATA  FindFileData;
-						HANDLE hFind;
-
-						hFind = FindFirstFile(exeName, &amp;amp;FindFileData);
-						if (hFind != INVALID_HANDLE_VALUE)
-						{
-							if (first == false)
-							{
-								sprintf_s(out_versions, 1024, &quot;%s&quot;, matlab_names[i].c_str());
-								first = true;
-							}
-							else
-							{
-								sprintf_s(out_versions, 1024, &quot;%s/%s&quot;, out_versions, matlab_names[i].c_str());
-							}
-							wprintf(L&quot;The first file found is %s &quot;, FindFileData.cFileName);
-							FindClose(hFind);
-						}
-					}
-					RegCloseKey(hKey1);
-				}
-			}
-			RegCloseKey(hKey);
-		}
-	}
-    memcpy(versions, out_versions, strlen(out_versions)+1);
-	return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;本段代码使用的是Windows的API&lt;/strong&gt;&lt;/p&gt;</content><author><name>Renwen Dong</name></author><summary type="html">一段通过注册表读取Matlab列表并判断可执行文件是否存在的Demo</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Renwen Dong</name></author><summary type="html">OpenStreetMap 是一个由地图制作爱好者组成的社区。这些爱好者提供并维护世界各地关于道路、小道、咖啡馆、铁路车站等各种各样的数据。</summary></entry></feed>
