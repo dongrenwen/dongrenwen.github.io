@@ -58,6 +58,8 @@
   
   
   
+  
+  
 
   
     {
@@ -170,6 +172,13 @@
       "category" : "运维",
       
       "url"      : "http://localhost:4000/2018/05/04/yum-error/"
+    } ,
+  
+    {
+      "title"    : "DB2极简安装步骤",
+      "category" : "运维",
+      
+      "url"      : "http://localhost:4000/2018/05/07/db2-install/"
     } ,
   
     {

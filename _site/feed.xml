@@ -1,4 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-04T17:19:39+08:00</updated><id>http://localhost:4000/</id><title type="html">董仁文的博客</title><subtitle>董仁文的个人博客</subtitle><author><name>Renwen Dong</name></author><entry><title type="html">安装DB2时导致yum损坏解决办法</title><link href="http://localhost:4000/2018/05/04/yum-error/" rel="alternate" type="text/html" title="安装DB2时导致yum损坏解决办法" /><published>2018-05-04T00:00:00+08:00</published><updated>2018-05-04T00:00:00+08:00</updated><id>http://localhost:4000/2018/05/04/yum-error</id><content type="html" xml:base="http://localhost:4000/2018/05/04/yum-error/">&lt;h1 id=&quot;安装db2时导致yum损坏解决办法&quot;&gt;安装DB2时导致yum损坏解决办法&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-07T08:51:49+08:00</updated><id>http://localhost:4000/</id><title type="html">董仁文的博客</title><subtitle>董仁文的个人博客</subtitle><author><name>Renwen Dong</name></author><entry><title type="html">DB2极简安装步骤</title><link href="http://localhost:4000/2018/05/07/db2-install/" rel="alternate" type="text/html" title="DB2极简安装步骤" /><published>2018-05-07T00:00:00+08:00</published><updated>2018-05-07T00:00:00+08:00</updated><id>http://localhost:4000/2018/05/07/db2-install</id><content type="html" xml:base="http://localhost:4000/2018/05/07/db2-install/">&lt;h1 id=&quot;db2极简安装步骤&quot;&gt;DB2极简安装步骤&lt;/h1&gt;
+&lt;p&gt;RHEL7.2最简单的方式快速搭建DB2数据库&lt;/p&gt;
+&lt;h2 id=&quot;安装相关的依赖库&quot;&gt;安装相关的依赖库&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;yum whatprovides libstdc++.so.
+yum install libstdc++-4.8.5-4.el7.i686
+yum install gcc&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; gcc-c++&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;下载安装包并解压安装&quot;&gt;下载安装包并解压安装&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-zxvf&lt;/span&gt; v11.1_linuxx64_server_t.tar.gz
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;server_t
+./db2_install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;创建用户并设定密码&quot;&gt;创建用户并设定密码&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;groupadd &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; 2000 db2iadm1
+groupadd &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; 2001 db2fadm1
+useradd &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; db2iadm1 &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; /home/db2inst1 db2inst1
+useradd &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; db2fadm1 &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; /home/db2fenc1 db2fenc1
+passwd db2inst1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;设置license并关联用户&quot;&gt;设置License并关联用户&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /opt/ibm/db2/V11.1/adm/
+chmod &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; 775 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
+./db2licm &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; ~/db2/server_t/db2/license/db2ese_t.lic
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /opt/ibm/db2/V11.1/instance/
+chmod &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; 775 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
+./db2icrt &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 50000 &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; db2fenc1 db2inst1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;切换用户启动服务&quot;&gt;切换用户启动服务&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;su - db2inst1
+db2sampl
+db2start
+db2 “select &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; from staff”
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Renwen Dong</name></author><summary type="html">DB2极简安装步骤 RHEL7.2最简单的方式快速搭建DB2数据库 安装相关的依赖库</summary></entry><entry><title type="html">安装DB2时导致yum损坏解决办法</title><link href="http://localhost:4000/2018/05/04/yum-error/" rel="alternate" type="text/html" title="安装DB2时导致yum损坏解决办法" /><published>2018-05-04T00:00:00+08:00</published><updated>2018-05-04T00:00:00+08:00</updated><id>http://localhost:4000/2018/05/04/yum-error</id><content type="html" xml:base="http://localhost:4000/2018/05/04/yum-error/">&lt;h1 id=&quot;安装db2时导致yum损坏解决办法&quot;&gt;安装DB2时导致yum损坏解决办法&lt;/h1&gt;
 
 &lt;h2 id=&quot;问题描述&quot;&gt;问题描述&lt;/h2&gt;
 
@@ -750,38 +791,4 @@ int get_supported_matlab(char* versions)
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;strong&gt;本段代码使用的是Windows的API&lt;/strong&gt;&lt;/p&gt;</content><author><name>Renwen Dong</name></author><summary type="html">一段通过注册表读取Matlab列表并判断可执行文件是否存在的Demo</summary></entry><entry><title type="html">wchar_t to string, string to wstring</title><link href="http://localhost:4000/2017/12/05/dword-to-wstring/" rel="alternate" type="text/html" title="wchar_t to string, string to wstring" /><published>2017-12-05T00:00:00+08:00</published><updated>2017-12-05T00:00:00+08:00</updated><id>http://localhost:4000/2017/12/05/dword-to-wstring</id><content type="html" xml:base="http://localhost:4000/2017/12/05/dword-to-wstring/">&lt;p&gt;wchar_t to string&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-C++&quot;&gt;#include &amp;lt;iostream&amp;gt;
-#include &quot;Windows.h&quot;
-#include &amp;lt;string&amp;gt;
-void Wchar_tToString(std::string&amp;amp; szDst, wchar_t *wchar)
-{
-	wchar_t * wText = wchar;
-	DWORD dwNum = WideCharToMultiByte(CP_OEMCP,NULL,wText,-1,NULL,0,NULL,FALSE);// WideCharToMultiByte的运用
-	char *psText; // psText为char*的临时数组，作为赋值给std::string的中间变量
-	psText = new char[dwNum];
-	WideCharToMultiByte (CP_OEMCP,NULL,wText,-1,psText,dwNum,NULL,FALSE);// WideCharToMultiByte的再次运用
-	szDst = psText;// std::string赋值
-	delete []psText;// psText的清除
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;string to wstring&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-C++&quot;&gt;#include &amp;lt;iostream&amp;gt;
-#include &quot;Windows.h&quot;
-#include &amp;lt;string&amp;gt;
-void StringToWstring(std::wstring&amp;amp; szDst, std::string str)
-{
-	std::string temp = str;
-	int len=MultiByteToWideChar(CP_ACP, 0, (LPCSTR)temp.c_str(), -1, NULL,0); 
-	wchar_t * wszUtf8 = new wchar_t[len+1]; 
-	memset(wszUtf8, 0, len * 2 + 2); 
-	MultiByteToWideChar(CP_ACP, 0, (LPCSTR)temp.c_str(), -1, (LPWSTR)wszUtf8, len);
-	szDst = wszUtf8;
-	std::wstring r = wszUtf8;
-	delete[] wszUtf8;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;本段代码使用的是Windows的API&lt;/strong&gt;&lt;/p&gt;</content><author><name>Renwen Dong</name></author><summary type="html">wchar_t to string</summary></entry></feed>
+&lt;p&gt;&lt;strong&gt;本段代码使用的是Windows的API&lt;/strong&gt;&lt;/p&gt;</content><author><name>Renwen Dong</name></author><summary type="html">一段通过注册表读取Matlab列表并判断可执行文件是否存在的Demo</summary></entry></feed>
