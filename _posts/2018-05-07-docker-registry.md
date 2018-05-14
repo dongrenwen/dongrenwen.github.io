@@ -28,7 +28,21 @@ keywords:    运维, 虚拟化, Docker
     docker run -d --restart=always -v /root/registry/data:/var/lib/registry --privileged=true -p 5000:5000 192.168.1.50:5000/registry:2
     ```
     
-4. 测试本地服务
+4. 修改客户端配置文件
+
+    + 修改 Docker 配置文件 `/etc/sysconfig/docker`
+    
+    ``` config
+    OPTIONS='--selinux-enabled --insecure-registry=192.168.1.55:5000'
+    ```
+    
+    + 重启Docker
+    
+    ``` sh
+    systemctl restart docker
+    ``` 
+    
+5. 测试本地服务
 
     ``` sh
     docker tag [镜像id] 192.168.1.51:5000/test/ubuntu:latest
