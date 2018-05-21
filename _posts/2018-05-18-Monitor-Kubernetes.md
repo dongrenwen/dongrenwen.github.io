@@ -264,7 +264,7 @@ kube-dns-v8-m2eri   3/3       Running   3          2d        rhel-minion153
 ### 通过 Web 服务进行查看
 
 + 连接 InfluxDB
-    + 在浏览器访问任意一个节点 IP 加上端口号 0027
+    + 在浏览器访问任意一个节点 IP 加上端口号 30027
     + 打开画面后将 Port 改成 30029, Username 改成 root, Password 改成 root
     
 + 连接 Grafana
