@@ -19,7 +19,7 @@ keywords:    运维, 大数据, Flume
     ```
 
 4. 生效配置文件 `source /etc/profile`
-### 5. 测试是否成功 `java -version`
+5. 测试是否成功 `java -version`
 
 ### 安装 Flume
 
@@ -59,7 +59,7 @@ keywords:    运维, 大数据, Flume
 2. 启动 Flume 
 
     ``` sh
-    /opt/apache-flume-1.8.0-bin/bin/flume-ng agent --conf /opt/apache-flume-1.8.0-bin/conf --conf-file /root/flume/example.conf --name a1 -Dflume.root.logger=INFO,console
+    $ /opt/apache-flume-1.8.0-bin/bin/flume-ng agent --conf /opt/apache-flume-1.8.0-bin/conf --conf-file /root/flume/example.conf --name a1 -Dflume.root.logger=INFO,console
     ```
     
 3. 新启动一个终端，并执行如下命令
