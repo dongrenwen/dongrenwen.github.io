@@ -425,7 +425,7 @@ ceph osd pool create cephfs_data <pg_num>
 ceph osd pool create cephfs_metadata <pg_num>
 ```
 
-<pg_num> 的设定规则:
+`<pg_num>` 的设定规则:
 
 * 若少于 5 个 OSD， 设置 pg_num 为 128* 5~10 个 OSD，设置 pg_num 为 512* 10~50 个 OSD，设置 pg_num 为 4096
 
