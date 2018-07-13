@@ -8,10 +8,10 @@ keywords:    运维, 监控, Ganglia, Flume
 
 ## 服务器说明
 
-`192.168.0.24` ganglia 相关服务, flume 服务
-`192.168.0.21` flume 服务
-`192.168.0.22` flume 服务
-`192.168.0.23` flume 服务
++ `192.168.0.24` ganglia 相关服务, flume 服务
++ `192.168.0.21` flume 服务
++ `192.168.0.22` flume 服务
++ `192.168.0.23` flume 服务
 
 ## 安装 Ganglia 相关服务
 
