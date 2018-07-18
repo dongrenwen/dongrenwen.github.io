@@ -38,6 +38,7 @@ systemctl stop iptables.service
 systemctl disable iptables.service
 setenforce 0
 ```
+
 将 `/etc/selinux/config` 文件中的 `SELINUX=enforcing` 修改为 `SELINUX=disabled`
 
 ## 安装 Ganglia 服务
