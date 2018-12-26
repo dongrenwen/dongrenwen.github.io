@@ -5,7 +5,7 @@ baseurl:
 url: https://dongrenwen.github.io
 date_format: "ordinal"
 title: 董仁文的博客
-subtitle: "建设中，敬请期待"
+subtitle: "写写代码，做做设计，看看产品。世界那么大，多玩玩看看。"
 description: "董仁文的个人博客"
 keywords: 董仁文, Renwen Dong, dongrenwen
 timezone: Asia/Shanghai
@@ -63,7 +63,7 @@ lsi: false
 quiet: false
 excerpt_separator: "\n\n"
 permalink: /:year/:month/:day/:title/
-gems:
+plugins:
     - jekyll-github-metadata
     - rouge
 #     - jekyll-html-pipeline
