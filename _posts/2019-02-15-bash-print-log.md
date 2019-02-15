@@ -24,11 +24,11 @@ function PrintLog() {
     # 如果调用函数时参数数量不正确报错
     if [[ "$#" != 2 ]]
     then
-        echo "$(date "+%Y-%m-%d %H:%M:%S") [ERROR] Incorrect number of parameters." | tee -a $LogFile
+        echo -e "$(date "+%Y-%m-%d %H:%M:%S") [\033[31;1mERROR\033[0m] Incorrect number of parameters." | tee -a $LogFile
         return 1
     fi
     # 打印
-    echo "$(date "+%Y-%m-%d %H:%M:%S") [$1] $2" | tee -a $LogFile
+    echo -e "$(date "+%Y-%m-%d %H:%M:%S") [$1] $2" | tee -a $LogFile
     return 0
 }
 #######################################
@@ -43,9 +43,9 @@ function PrintLog() {
 #######################################
 function PrintError() {
 	# 如果调用函数时参数数量不正确报错
-    if [[ "$#" != 2 ]]
+    if [[ "$#" != 1 ]]
     then
-        PrintLog "ERROR" "Incorrect number of parameters."
+        PrintLog "\033[31;1mERROR\033[0m" "Incorrect number of parameters."
         return 1
     fi
 	PrintLog "ERROR" "$1"
@@ -63,9 +63,9 @@ function PrintError() {
 #######################################
 function PrintInfo() {
 	# 如果调用函数时参数数量不正确报错
-    if [[ "$#" != 2 ]]
+    if [[ "$#" != 1 ]]
     then
-        PrintLog "ERROR" "Incorrect number of parameters."
+        PrintLog "\033[32;1mINFO\033[0m" "Incorrect number of parameters."
         return 1
     fi
 	PrintLog "INFO" "$1"
