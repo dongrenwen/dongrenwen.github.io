@@ -42,14 +42,14 @@ function PrintLog() {
 #
 #######################################
 function PrintError() {
-	# 如果调用函数时参数数量不正确报错
+    # 如果调用函数时参数数量不正确报错
     if [[ "$#" != 1 ]]
     then
         PrintLog "\033[31;1mERROR\033[0m" "Incorrect number of parameters."
         return 1
     fi
-	PrintLog "\033[31;1mERROR\033[0m" "$1"
-	return $?
+    PrintLog "\033[31;1mERROR\033[0m" "$1"
+    return $?
 }
 #######################################
 #
@@ -62,14 +62,14 @@ function PrintError() {
 #
 #######################################
 function PrintInfo() {
-	# 如果调用函数时参数数量不正确报错
+    # 如果调用函数时参数数量不正确报错
     if [[ "$#" != 1 ]]
     then
         PrintLog "\033[31;1mERROR\033[0m" "Incorrect number of parameters."
         return 1
     fi
-	PrintLog "\033[32;1mINFO\033[0m" "$1"
-	return $?
+    PrintLog "\033[32;1mINFO\033[0m" "$1"
+    return $?
 }
 #######################################
 #
@@ -82,14 +82,14 @@ function PrintInfo() {
 #
 #######################################
 function PrintWarning() {
-	# 如果调用函数时参数数量不正确报错
+    # 如果调用函数时参数数量不正确报错
     if [[ "$#" != 1 ]]
     then
         PrintLog "\033[31;1mERROR\033[0m" "Incorrect number of parameters."
         return 1
     fi
-	PrintLog "\033[33;1mWARNING\033[0m" "$1"
-	return $?
+    PrintLog "\033[33;1mWARNING\033[0m" "$1"
+    return $?
 }
 ```
 
