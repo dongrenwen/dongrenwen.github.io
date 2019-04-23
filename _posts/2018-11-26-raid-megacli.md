@@ -62,6 +62,9 @@ MegaCli64 -PDHSP -set -PhysDrv[E:S] -a0   添加全局热备
 MegaCli64 -PDHSP -rmv -PhysDrv[E:S] -a0   删除全局热备
 ```
 
++ E: Enclosure Device ID
++ S: Slot Number
+
 ### 删除 Raid 组
 
 ```
@@ -74,10 +77,9 @@ MegaCli64 -PDHSP -rmv -PhysDrv[E:S] -a0   删除全局热备
 /opt/MegaRAID/MegaCli/MegaCli64 -CfgLdAdd -r0[32:5] WB Direct -a0
 ```
 
-说明：
-r0: raid0
-[32:5]: 32为Enclosure Device ID，5为Slot Number
-WB Direct： 磁盘Write back
++ r0: raid0
++ [32:5]: 32为Enclosure Device ID，5为Slot Number
++ WB Direct： 磁盘Write back
 
 ### 查看磁盘缓存策略
 
@@ -105,6 +107,36 @@ WB Direct： 磁盘Write back
 /opt/MegaRAID/MegaCli/MegaCli64 -AdpBbuCmd -GetBbuDesignInfo -aALL 【显示BBU设计参数】
 /opt/MegaRAID/MegaCli/MegaCli64 -AdpBbuCmd -GetBbuProperties -aALL 【显示当前BBU属性】
 /opt/MegaRAID/MegaCli/MegaCli64 -cfgdsply -aALL 【显示Raid卡型号，Raid设置，Disk相关信息】
+```
+
+### 一个操作 Demo
+
+```
+# 查看所有相关信息
+/opt/MegaRAID/MegaCli/MegaCli64 -LdPdInfo -aAll | grep -E "Adapter|Enclosure Device|Slot Number|Target Id|Firmware state"
+
+# 删除 Raid
+/opt/MegaRAID/MegaCli/MegaCli64 -CfgLdDel -L1 -force -a0
+
+# 删除全局热备
+/opt/MegaRAID/MegaCli/MegaCli64 -PDHSP rmv -PhysDrv[0:9] -a0
+/opt/MegaRAID/MegaCli/MegaCli64 -PDHSP rmv -PhysDrv[0:10] -a0
+/opt/MegaRAID/MegaCli/MegaCli64 -PDHSP rmv -PhysDrv[0:11] -a0
+
+# 创建 Read0 磁盘
+/opt/MegaRAID/MegaCli/MegaCli64 -CfgLdAdd -r0[0:0] WB Direct -a0
+/opt/MegaRAID/MegaCli/MegaCli64 -CfgLdAdd -r0[0:1] WB Direct -a0
+/opt/MegaRAID/MegaCli/MegaCli64 -CfgLdAdd -r0[0:2] WB Direct -a0
+/opt/MegaRAID/MegaCli/MegaCli64 -CfgLdAdd -r0[0:3] WB Direct -a0
+/opt/MegaRAID/MegaCli/MegaCli64 -CfgLdAdd -r0[0:4] WB Direct -a0
+/opt/MegaRAID/MegaCli/MegaCli64 -CfgLdAdd -r0[0:5] WB Direct -a0
+/opt/MegaRAID/MegaCli/MegaCli64 -CfgLdAdd -r0[0:6] WB Direct -a0
+/opt/MegaRAID/MegaCli/MegaCli64 -CfgLdAdd -r0[0:7] WB Direct -a0
+/opt/MegaRAID/MegaCli/MegaCli64 -CfgLdAdd -r0[0:8] WB Direct -a0
+
+/opt/MegaRAID/MegaCli/MegaCli64 -CfgLdAdd -r0[0:9] WB Direct -a0
+/opt/MegaRAID/MegaCli/MegaCli64 -CfgLdAdd -r0[0:10] WB Direct -a0
+/opt/MegaRAID/MegaCli/MegaCli64 -CfgLdAdd -r0[0:11] WB Direct -a0
 ```
 
 ### 参考资料
