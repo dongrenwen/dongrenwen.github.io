@@ -16,7 +16,7 @@ keywords:    运维, Linux, 大数据, Hadoop
 
     + 物理硬件： PVE 虚拟硬件
     + 操作系统： rhel-server-7.2-x86_64
-    + 主机名： hadoop01 hadoop01.bonc
+    + 主机名： hadoop01 hadoop01.pve
     + IP 地址： 192.168.0.103
     + CPU： 2C
     + 内存： 4G
@@ -26,7 +26,7 @@ keywords:    运维, Linux, 大数据, Hadoop
 
     + 物理硬件： PVE 虚拟硬件
     + 操作系统： rhel-server-7.2-x86_64
-    + 主机名： hadoop02 hadoop02.bonc
+    + 主机名： hadoop02 hadoop02.pve
     + IP 地址： 192.168.0.104
     + CPU： 2C
     + 内存： 4G
@@ -36,7 +36,7 @@ keywords:    运维, Linux, 大数据, Hadoop
 
     + 物理硬件： PVE 虚拟硬件
     + 操作系统： rhel-server-7.2-x86_64
-    + 主机名： hadoop03 hadoop03.bonc
+    + 主机名： hadoop03 hadoop03.pve
     + IP 地址： 192.168.0.105
     + CPU： 2C
     + 内存： 4G
@@ -94,9 +94,9 @@ yum install screen -y
 
 ```
 cat >> /etc/hosts << EOF
-192.168.0.103   hadoop01 hadoop01.bonc
-192.168.0.104   hadoop02 hadoop02.bonc
-192.168.0.105   hadoop03 hadoop03.bonc
+192.168.0.103   hadoop01 hadoop01.pve
+192.168.0.104   hadoop02 hadoop02.pve
+192.168.0.105   hadoop03 hadoop03.pve
 EOF
 ```
 
@@ -164,9 +164,9 @@ ssh-keygen
 ssh-copy-id hadoop01
 ssh-copy-id hadoop02
 ssh-copy-id hadoop03
-ssh-copy-id hadoop01.bonc
-ssh-copy-id hadoop02.bonc
-ssh-copy-id hadoop03.bonc
+ssh-copy-id hadoop01.pve
+ssh-copy-id hadoop02.pve
+ssh-copy-id hadoop03.pve
 ```
 
 #### 配置 JDK
